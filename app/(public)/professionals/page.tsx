@@ -1,331 +1,224 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import { Button, Card, H1, H2, H3, Text } from '@/components/ui'
 
 export default function ProfessionalsPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-ivory selection:bg-gold/20">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-concrete">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="font-serif text-xl text-charcoal">
-            Tailor Shift
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-ivory/95 backdrop-blur-sm border-b border-stone/20">
+        <div className="container mx-auto h-20 flex justify-between items-center">
+          <Link href="/" className="flex items-center group">
+            <Image
+              src="/brand/logo-monogram.png"
+              alt="Tailor Shift"
+              width={40}
+              height={40}
+              className="h-10 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+              priority
+            />
           </Link>
           <div className="flex items-center gap-6">
-            <Link href="/brands" className="text-caption text-soft-grey hover:text-charcoal">
+            <Link 
+              href="/brands" 
+              className="text-caption font-medium text-grey-warm hover:text-charcoal tracking-luxury-wide transition-colors duration-300"
+            >
               For Brands
             </Link>
             <Link
               href="/login"
-              className="text-caption text-charcoal hover:text-matte-gold"
+              className="text-caption font-medium text-charcoal hover:text-gold-dark tracking-luxury-wide transition-colors duration-300"
             >
               Sign In
             </Link>
-            <Link
-              href="/signup?type=talent"
-              className="px-4 py-2 bg-matte-gold text-charcoal rounded text-caption font-medium hover:bg-matte-gold/90"
-            >
-              Get Started
+            <Link href="/signup?type=talent">
+              <Button size="sm">Get Started</Button>
             </Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-4xl text-center">
-          <p className="text-caption uppercase tracking-widest text-matte-gold mb-4">
+      <section className="pt-32 pb-20 p-comfortable relative overflow-hidden">
+        <div className="container mx-auto max-w-5xl text-center relative z-10">
+          <Text variant="label" className="text-gold mb-6 block">
             For Retail Professionals
-          </p>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight">
+          </Text>
+          <H1 className="text-5xl md:text-6xl lg:text-7xl mb-8">
             Your Luxury Career,{' '}
-            <span className="text-matte-gold">Intelligently Matched</span>
-          </h1>
-          <p className="mt-6 text-xl text-soft-grey max-w-2xl mx-auto">
-            Discover opportunities at the world&apos;s most prestigious maisons. Let our
+            <span className="text-gold-dark italic">Intelligently Matched</span>
+          </H1>
+          <Text className="text-xl text-charcoal-soft max-w-2xl mx-auto font-light leading-relaxed mb-12">
+            Discover opportunities at the world's most prestigious maisons. Let our
             intelligent matching engine find roles that align with your expertise,
             aspirations, and lifestyle.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/signup?type=talent"
-              className="inline-flex h-12 items-center justify-center px-8 bg-matte-gold text-charcoal rounded font-medium hover:bg-matte-gold/90"
-            >
-              Create Your Profile
+          </Text>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/signup?type=talent">
+              <Button size="lg" className="min-w-[200px]">
+                Create Your Profile
+              </Button>
             </Link>
-            <Link
-              href="#how-it-works"
-              className="inline-flex h-12 items-center justify-center px-8 border border-charcoal text-charcoal rounded font-medium hover:bg-charcoal/5"
-            >
-              Learn More
+            <Link href="#how-it-works">
+              <Button variant="secondary" size="lg" className="min-w-[200px]">
+                Learn More
+              </Button>
             </Link>
           </div>
+        </div>
+        
+        {/* Subtle background decoration */}
+        <div className="absolute top-1/2 left-0 w-64 h-64 opacity-10 pointer-events-none -translate-y-1/2">
+           <Image
+            src="/brand/la_grasset_subtle_golden_thread_traces_on_ivory_textured_surf_49edf17d-9ac9-42f0-8d56-e86a46c27ea7_1.png"
+            alt=""
+            fill
+            className="object-contain object-left"
+          />
         </div>
       </section>
 
       {/* Value Props */}
-      <section className="py-20 px-6 bg-off-white">
+      <section className="py-spacious bg-ivory-light relative">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="font-serif text-3xl text-charcoal text-center mb-16">
-            Why Professionals Choose Tailor Shift
-          </h2>
+          <H2 className="text-center mb-16">Why Professionals Choose Tailor Shift</H2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg border border-concrete">
-              <div className="w-12 h-12 bg-matte-gold/10 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">🎯</span>
+            <Card className="border-none hover:shadow-hover transition-all duration-500">
+              <div className="w-16 h-16 flex items-center justify-center mb-8">
+                <Image
+                  src="/brand/la_grasset_three_fine_golden_threads_converging_toward_center_60ffd8e6-60cf-4606-bf3d-c63ddcd4c386_0.png"
+                  alt="Perfect Match"
+                  width={64}
+                  height={64}
+                  className="object-contain opacity-80"
+                />
               </div>
-              <h3 className="font-sans text-lg font-semibold text-charcoal mb-3">
-                Perfect Match, Every Time
-              </h3>
-              <p className="text-soft-grey">
+              <H3 className="mb-4">Perfect Match, Every Time</H3>
+              <Text className="text-charcoal-soft">
                 Our 7-dimension matching algorithm considers your experience, preferences,
                 and career goals to surface only the most relevant opportunities.
-              </p>
-            </div>
+              </Text>
+            </Card>
 
-            <div className="bg-white p-8 rounded-lg border border-concrete">
-              <div className="w-12 h-12 bg-matte-gold/10 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">🔒</span>
+            <Card className="border-none hover:shadow-hover transition-all duration-500">
+              <div className="w-16 h-16 flex items-center justify-center mb-8">
+                <Image
+                  src="/brand/la_grasset_single_small_golden_thread_curl_resting_on_vast_iv_cbc177a7-05a2-4b2d-a541-bdb2a43c7d4d_0.png"
+                  alt="Confidentiality"
+                  width={64}
+                  height={64}
+                  className="object-contain opacity-80"
+                />
               </div>
-              <h3 className="font-sans text-lg font-semibold text-charcoal mb-3">
-                Complete Confidentiality
-              </h3>
-              <p className="text-soft-grey">
+              <H3 className="mb-4">Complete Confidentiality</H3>
+              <Text className="text-charcoal-soft">
                 Your profile and career journey remain private. You control what brands
-                see and when. No one knows you&apos;re exploring unless you want them to.
-              </p>
-            </div>
+                see and when. No one knows you're exploring unless you want them to.
+              </Text>
+            </Card>
 
-            <div className="bg-white p-8 rounded-lg border border-concrete">
-              <div className="w-12 h-12 bg-matte-gold/10 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">📈</span>
+            <Card className="border-none hover:shadow-hover transition-all duration-500">
+              <div className="w-16 h-16 flex items-center justify-center mb-8">
+                <Image
+                  src="/brand/la_grasset_golden_thread_forming_ascending_steps_pattern_abst_65dc05d8-f1b8-4094-bd88-dd7ae49a2ae4_0.png"
+                  alt="Career Growth"
+                  width={64}
+                  height={64}
+                  className="object-contain opacity-80"
+                />
               </div>
-              <h3 className="font-sans text-lg font-semibold text-charcoal mb-3">
-                Career Growth Insights
-              </h3>
-              <p className="text-soft-grey">
+              <H3 className="mb-4">Career Growth Insights</H3>
+              <Text className="text-charcoal-soft">
                 Get personalized career projections, identify skill gaps, and access
                 learning recommendations to accelerate your path to leadership.
-              </p>
-            </div>
+              </Text>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 px-6">
+      <section id="how-it-works" className="py-spacious bg-ivory">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="font-serif text-3xl text-charcoal text-center mb-16">
-            How It Works
-          </h2>
+          <H2 className="text-center mb-16">How It Works</H2>
 
           <div className="space-y-12">
-            <div className="flex gap-6 items-start">
-              <div className="w-10 h-10 bg-matte-gold rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-semibold">1</span>
-              </div>
-              <div>
-                <h3 className="font-sans text-lg font-semibold text-charcoal mb-2">
-                  Create Your Profile
-                </h3>
-                <p className="text-soft-grey">
-                  Tell us about your experience, expertise across luxury divisions, and
-                  career aspirations. Our guided onboarding takes just 10 minutes.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-6 items-start">
-              <div className="w-10 h-10 bg-matte-gold rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-semibold">2</span>
-              </div>
-              <div>
-                <h3 className="font-sans text-lg font-semibold text-charcoal mb-2">
-                  Complete the Retail Excellence Scan
-                </h3>
-                <p className="text-soft-grey">
-                  Our 15-minute assessment evaluates your capabilities across service
-                  excellence, clienteling, operations, and leadership. No right or wrong
-                  answers—just honest insights.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-6 items-start">
-              <div className="w-10 h-10 bg-matte-gold rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-semibold">3</span>
-              </div>
-              <div>
-                <h3 className="font-sans text-lg font-semibold text-charcoal mb-2">
-                  Receive Intelligent Matches
-                </h3>
-                <p className="text-soft-grey">
-                  Our engine analyzes your profile against active opportunities from
-                  luxury brands. You&apos;ll see match scores with clear explanations of why
-                  each role fits you.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-6 items-start">
-              <div className="w-10 h-10 bg-matte-gold rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-semibold">4</span>
-              </div>
-              <div>
-                <h3 className="font-sans text-lg font-semibold text-charcoal mb-2">
-                  Express Interest & Connect
-                </h3>
-                <p className="text-soft-grey">
-                  When a role excites you, express interest. When brands are equally
-                  interested, we facilitate the connection. You stay in control throughout.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Assessment Preview */}
-      <section className="py-20 px-6 bg-off-white">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="text-caption uppercase tracking-widest text-matte-gold mb-4">
-                Retail Excellence Scan
-              </p>
-              <h2 className="font-serif text-3xl text-charcoal mb-6">
-                Understand Your Strengths
-              </h2>
-              <p className="text-soft-grey mb-6">
-                Our proprietary assessment, developed with insights from leading luxury
-                maisons, evaluates your capabilities across four key dimensions:
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-matte-gold rounded-full mt-2" />
-                  <div>
-                    <span className="font-medium text-charcoal">Service Excellence</span>
-                    <p className="text-sm text-soft-grey">
-                      Client experience delivery and luxury standards
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-matte-gold rounded-full mt-2" />
-                  <div>
-                    <span className="font-medium text-charcoal">Clienteling</span>
-                    <p className="text-sm text-soft-grey">
-                      Relationship building and VIC management
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-matte-gold rounded-full mt-2" />
-                  <div>
-                    <span className="font-medium text-charcoal">Operations</span>
-                    <p className="text-sm text-soft-grey">
-                      Process efficiency and inventory mastery
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-matte-gold rounded-full mt-2" />
-                  <div>
-                    <span className="font-medium text-charcoal">Leadership Signals</span>
-                    <p className="text-sm text-soft-grey">
-                      Team influence and strategic thinking
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="bg-white p-8 rounded-lg border border-concrete">
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-charcoal">Service Excellence</span>
-                    <span className="text-matte-gold">82%</span>
-                  </div>
-                  <div className="h-2 bg-concrete rounded-full">
-                    <div className="h-2 bg-matte-gold rounded-full" style={{ width: '82%' }} />
-                  </div>
+            {[
+              {
+                step: 1,
+                title: "Create Your Profile",
+                desc: "Tell us about your experience, expertise across luxury divisions, and career aspirations. Our guided onboarding takes just 10 minutes."
+              },
+              {
+                step: 2,
+                title: "Complete the Retail Excellence Scan",
+                desc: "Our 15-minute assessment evaluates your capabilities across service excellence, clienteling, operations, and leadership."
+              },
+              {
+                step: 3,
+                title: "Receive Intelligent Matches",
+                desc: "Our engine analyzes your profile against active opportunities from luxury brands. You'll see match scores with clear explanations."
+              },
+              {
+                step: 4,
+                title: "Express Interest & Connect",
+                desc: "When a role excites you, express interest. When brands are equally interested, we facilitate the connection."
+              }
+            ].map((item) => (
+              <div key={item.step} className="flex gap-8 items-start group">
+                <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
+                  <span className="text-gold-dark font-serif text-xl">{item.step}</span>
                 </div>
                 <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-charcoal">Clienteling</span>
-                    <span className="text-matte-gold">75%</span>
-                  </div>
-                  <div className="h-2 bg-concrete rounded-full">
-                    <div className="h-2 bg-matte-gold rounded-full" style={{ width: '75%' }} />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-charcoal">Operations</span>
-                    <span className="text-matte-gold">68%</span>
-                  </div>
-                  <div className="h-2 bg-concrete rounded-full">
-                    <div className="h-2 bg-matte-gold rounded-full" style={{ width: '68%' }} />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-charcoal">Leadership Signals</span>
-                    <span className="text-matte-gold">71%</span>
-                  </div>
-                  <div className="h-2 bg-concrete rounded-full">
-                    <div className="h-2 bg-matte-gold rounded-full" style={{ width: '71%' }} />
-                  </div>
+                  <H3 className="mb-2">{item.title}</H3>
+                  <Text className="text-grey-warm max-w-2xl">{item.desc}</Text>
                 </div>
               </div>
-              <p className="text-xs text-soft-grey text-center mt-6">
-                Sample assessment results visualization
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6 bg-charcoal">
-        <div className="container mx-auto max-w-3xl text-center">
-          <h2 className="font-serif text-3xl text-white mb-6">
-            Ready to Elevate Your Career?
-          </h2>
-          <p className="text-lg text-white/70 mb-10">
+      <section className="py-spacious bg-charcoal text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/brand/bg-ivory-paper.png')] opacity-5 mix-blend-overlay pointer-events-none" />
+        <div className="container mx-auto max-w-3xl relative z-10">
+          <H2 className="text-ivory mb-6">Ready to Elevate Your Career?</H2>
+          <Text className="text-ivory/70 text-lg mb-10">
             Join thousands of luxury retail professionals who have discovered their
             perfect next role through Tailor Shift.
-          </p>
-          <Link
-            href="/signup?type=talent"
-            className="inline-flex h-12 items-center justify-center px-8 bg-matte-gold text-charcoal rounded font-medium hover:bg-matte-gold/90"
-          >
-            Create Your Profile — It&apos;s Free
+          </Text>
+          <Link href="/signup?type=talent">
+            <Button size="lg" className="bg-gold text-charcoal hover:bg-gold-light border-none">
+              Create Your Profile — It's Free
+            </Button>
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-concrete bg-off-white px-6 py-12">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-caption text-soft-grey">
-              © {new Date().getFullYear()} Tailor Shift. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <Link
-                href="/terms"
-                className="text-caption text-soft-grey hover:text-charcoal"
-              >
-                Terms
-              </Link>
-              <Link
-                href="/privacy"
-                className="text-caption text-soft-grey hover:text-charcoal"
-              >
-                Privacy
-              </Link>
-            </div>
+      <footer className="bg-ivory py-spacious border-t border-stone/20">
+        <div className="container flex flex-col items-center gap-8">
+          <Link href="/" className="opacity-80 hover:opacity-100 transition-opacity duration-300">
+            <Image
+              src="/brand/logo-wordmark.png"
+              alt="Tailor Shift"
+              width={160}
+              height={32}
+              className="h-8 w-auto"
+            />
+          </Link>
+          
+          <div className="flex gap-8 text-caption text-grey-warm">
+            <Link href="/terms" className="hover:text-charcoal transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-charcoal transition-colors">Privacy</Link>
+            <Link href="/brands" className="hover:text-charcoal transition-colors">For Brands</Link>
           </div>
+
+          <Text variant="caption" className="text-stone">
+            © {new Date().getFullYear()} Tailor Shift. All rights reserved.
+          </Text>
         </div>
       </footer>
     </main>

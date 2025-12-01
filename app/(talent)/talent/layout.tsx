@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { createBrowserClient } from '@supabase/ssr'
-import { H2, Text } from '@/components/ui'
 
 interface NavLinkProps {
   href: string
@@ -18,8 +18,8 @@ function NavLink({ href, children, currentPath }: NavLinkProps) {
   return (
     <Link
       href={href}
-      className={`text-sm font-medium transition-colors ${
-        isActive ? 'text-charcoal' : 'text-soft-grey hover:text-matte-gold'
+      className={`text-sm font-medium tracking-luxury-wide transition-all duration-300 ${
+        isActive ? 'text-charcoal' : 'text-grey-warm hover:text-gold'
       }`}
     >
       {children}
@@ -33,8 +33,8 @@ function MobileNavLink({ href, children, currentPath }: NavLinkProps) {
   return (
     <Link
       href={href}
-      className={`text-sm font-medium whitespace-nowrap transition-colors ${
-        isActive ? 'text-charcoal' : 'text-soft-grey'
+      className={`text-sm font-medium whitespace-nowrap tracking-luxury-wide transition-all duration-300 ${
+        isActive ? 'text-charcoal' : 'text-grey-warm'
       }`}
     >
       {children}
@@ -84,14 +84,21 @@ export default function TalentLayout({ children }: { children: React.ReactNode }
   }
 
   return (
-    <div className="min-h-screen bg-off-white">
+    <div className="min-h-screen bg-ivory">
       {/* Header */}
-      <header className="border-b border-concrete bg-white sticky top-0 z-50">
+      <header className="bg-ivory-light shadow-subtle sticky top-0 z-50">
         <div className="mx-auto max-w-7xl px-comfortable">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link href="/talent/dashboard">
-              <H2 className="text-xl">Tailor Shift</H2>
+            <Link href="/talent/dashboard" className="flex items-center">
+              <Image
+                src="/brand/logo-monogram.png"
+                alt="Tailor Shift"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+                priority
+              />
             </Link>
 
             {/* Navigation */}
@@ -120,12 +127,12 @@ export default function TalentLayout({ children }: { children: React.ReactNode }
             <div className="relative">
               <button
                 onClick={() => setShowMenu(!showMenu)}
-                className="flex items-center gap-2 text-sm text-soft-grey hover:text-charcoal transition-colors"
+                className="flex items-center gap-2 text-sm text-grey-warm hover:text-charcoal transition-all duration-300"
               >
                 {/* User Avatar/Icon */}
-                <div className="w-8 h-8 rounded-full bg-sand-100 flex items-center justify-center border border-sand-200">
+                <div className="w-8 h-8 rounded-full bg-ivory-warm flex items-center justify-center border border-stone">
                   <svg 
-                    className="w-5 h-5 text-sand-600" 
+                    className="w-5 h-5 text-grey-warm" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -133,9 +140,9 @@ export default function TalentLayout({ children }: { children: React.ReactNode }
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <span className="hidden sm:block">{firstName}</span>
+                <span className="hidden sm:block font-medium tracking-luxury-wide">{firstName}</span>
                 <svg
-                  className={`w-4 h-4 transition-transform ${showMenu ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 transition-transform duration-300 ${showMenu ? 'rotate-180' : ''}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -147,26 +154,26 @@ export default function TalentLayout({ children }: { children: React.ReactNode }
               {showMenu && (
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setShowMenu(false)} />
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-concrete z-20">
+                  <div className="absolute right-0 mt-2 w-48 bg-ivory-light rounded-lg shadow-elevated z-20">
                     <div className="py-1">
                       <Link
                         href="/talent/profile"
-                        className="block px-4 py-2 text-sm text-charcoal hover:bg-off-white"
+                        className="block px-4 py-2 text-sm text-charcoal hover:bg-ivory-warm transition-colors duration-300"
                         onClick={() => setShowMenu(false)}
                       >
                         Profile
                       </Link>
                       <Link
                         href="/talent/settings"
-                        className="block px-4 py-2 text-sm text-charcoal hover:bg-off-white"
+                        className="block px-4 py-2 text-sm text-charcoal hover:bg-ivory-warm transition-colors duration-300"
                         onClick={() => setShowMenu(false)}
                       >
                         Settings
                       </Link>
-                      <hr className="my-1 border-concrete" />
+                      <hr className="my-1 border-stone" />
                       <button
                         onClick={handleSignOut}
-                        className="block w-full text-left px-4 py-2 text-sm text-soft-grey hover:bg-off-white"
+                        className="block w-full text-left px-4 py-2 text-sm text-grey-warm hover:bg-ivory-warm transition-colors duration-300"
                       >
                         Sign out
                       </button>
@@ -180,7 +187,7 @@ export default function TalentLayout({ children }: { children: React.ReactNode }
       </header>
 
       {/* Mobile Navigation */}
-      <nav className="md:hidden border-b border-concrete bg-white overflow-x-auto">
+      <nav className="md:hidden bg-ivory-light shadow-subtle overflow-x-auto">
         <div className="flex px-comfortable py-2 gap-6">
           <MobileNavLink href="/talent/dashboard" currentPath={pathname}>
             Dashboard

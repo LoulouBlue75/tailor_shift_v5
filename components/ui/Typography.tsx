@@ -64,8 +64,8 @@ function Text({
 }: TextProps) {
   const variants = {
     body: "text-body text-charcoal",
-    caption: "text-caption text-soft-grey",
-    label: "text-label font-medium text-charcoal",
+    caption: "text-caption text-grey-warm",
+    label: "text-label font-medium text-charcoal tracking-luxury-wide uppercase",
   };
 
   return (

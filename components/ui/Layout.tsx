@@ -83,11 +83,13 @@ function Grid({ className, cols = 1, gap = "md", children, ...props }: GridProps
 // Divider Component
 interface DividerProps extends React.HTMLAttributes<HTMLHRElement> {
   orientation?: "horizontal" | "vertical";
+  variant?: "default" | "gold";
 }
 
 function Divider({
   className,
   orientation = "horizontal",
+  variant = "default",
   ...props
 }: DividerProps) {
   if (orientation === "vertical") {
@@ -95,7 +97,22 @@ function Divider({
       <div
         role="separator"
         aria-orientation="vertical"
-        className={cn("h-full w-px bg-concrete", className)}
+        className={cn(
+          "h-full w-px",
+          variant === "gold" ? "bg-gold/30" : "bg-stone",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+
+  if (variant === "gold") {
+    return (
+      <div
+        role="separator"
+        aria-orientation="horizontal"
+        className={cn("h-px bg-gradient-to-r from-transparent via-gold to-transparent", className)}
         {...props}
       />
     );
@@ -105,7 +122,7 @@ function Divider({
     <hr
       role="separator"
       aria-orientation="horizontal"
-      className={cn("border-t border-concrete", className)}
+      className={cn("border-t border-stone", className)}
       {...props}
     />
   );

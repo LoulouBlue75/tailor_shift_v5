@@ -15,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className="w-full">
         <label
           htmlFor={inputId}
-          className="block text-label font-medium text-charcoal"
+          className="block text-label font-medium text-charcoal tracking-luxury-wide"
         >
           {label}
           {required && <span className="ml-1 text-error">*</span>}
@@ -24,12 +24,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           className={cn(
-            "mt-2 block w-full rounded border bg-white px-4 py-3 text-body text-charcoal placeholder:text-soft-grey transition-colors",
-            "focus:border-matte-gold focus:outline-none focus:ring-1 focus:ring-matte-gold",
-            "disabled:cursor-not-allowed disabled:bg-concrete/30 disabled:text-soft-grey",
+            "mt-2 block w-full rounded-lg border bg-white px-4 py-3 text-body text-charcoal placeholder:text-grey-warm transition-all duration-300",
+            "focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 focus:shadow-subtle",
+            "disabled:cursor-not-allowed disabled:bg-ivory-warm disabled:text-grey-warm",
             error
-              ? "border-error focus:border-error focus:ring-error"
-              : "border-concrete",
+              ? "border-error focus:border-error focus:ring-error/30"
+              : "border-stone",
             className
           )}
           aria-invalid={error ? "true" : "false"}
@@ -45,7 +45,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </p>
         )}
         {!error && helperText && (
-          <p id={`${inputId}-helper`} className="mt-2 text-caption text-soft-grey">
+          <p id={`${inputId}-helper`} className="mt-2 text-caption text-grey-warm">
             {helperText}
           </p>
         )}

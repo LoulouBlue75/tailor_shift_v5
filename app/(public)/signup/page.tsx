@@ -2,9 +2,10 @@
 
 import { Suspense, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Button, Input, Card, H2, H3, Text, Stack, Grid } from "@/components/ui";
+import { Button, Input, Card, H2, H3, Text } from "@/components/ui";
 
 type UserType = "talent" | "brand";
 
@@ -81,25 +82,24 @@ function SignupForm() {
   // Success state
   if (success) {
     return (
-      <main className="flex min-h-screen items-center justify-center px-comfortable py-expansive">
-        <div className="w-full max-w-md text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
+      <main className="min-h-screen flex items-center justify-center p-comfortable bg-ivory">
+        <Card className="max-w-md w-full p-10 text-center border-none shadow-elevated bg-ivory-light">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success/10 mb-6">
             <svg className="h-8 w-8 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <H2 className="mt-6">Check Your Email</H2>
-          <Text className="mt-4 text-soft-grey">
-            We&apos;ve sent a confirmation link to <strong className="text-charcoal">{email}</strong>. 
+          <H2 className="text-3xl mb-4">Check Your Email</H2>
+          <Text className="text-grey-warm leading-relaxed">
+            We've sent a confirmation link to <strong className="text-charcoal font-medium">{email}</strong>. 
             Click the link to verify your account.
           </Text>
-          <Link
-            href="/login"
-            className="mt-8 inline-block text-caption text-charcoal underline underline-offset-4 hover:text-matte-gold"
-          >
-            Back to login
-          </Link>
-        </div>
+          <div className="mt-8">
+            <Link href="/login">
+              <Button variant="ghost">Back to login</Button>
+            </Link>
+          </div>
+        </Card>
       </main>
     );
   }
@@ -107,69 +107,107 @@ function SignupForm() {
   // Step 1: Select user type
   if (step === "select") {
     return (
-      <main className="flex min-h-screen items-center justify-center px-comfortable py-expansive">
-        <div className="w-full max-w-lg">
-          <div className="text-center">
-            <Link href="/" className="inline-block">
-              <H2>Tailor Shift</H2>
+      <main className="min-h-screen flex items-center justify-center p-comfortable bg-ivory">
+        <div className="w-full max-w-4xl">
+          <div className="text-center mb-12">
+            <Link href="/" className="inline-block mb-6 opacity-90 hover:opacity-100 transition-opacity">
+              <Image
+                src="/brand/logo-monogram.png"
+                alt="Tailor Shift"
+                width={56}
+                height={56}
+                className="h-14 w-auto"
+                priority
+              />
             </Link>
-            <Text className="mt-2 text-soft-grey">
+            <H2 className="text-4xl mb-4">Choose your journey</H2>
+            <Text className="text-xl text-charcoal-soft font-light">
               How would you like to use Tailor Shift?
             </Text>
           </div>
 
-          <Grid cols={2} gap="md" className="mt-12">
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {/* Professional Option */}
-            <Card variant="interactive" onClick={() => handleSelectType("talent")} className="p-8">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-matte-gold/10">
-                <span className="text-2xl">👤</span>
+            <Card 
+              onClick={() => handleSelectType("talent")} 
+              className="group p-8 border-none shadow-card hover:shadow-hover transition-all duration-500 cursor-pointer bg-ivory-light relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
+                 <Image
+                  src="/brand/la_grasset_single_golden_thread_ascending_in_elegant_curve_on_87aa6836-f1f6-4aa4-9114-5b9b3dfaa8b2_1.png"
+                  alt=""
+                  fill
+                  className="object-contain object-top-right"
+                />
               </div>
-              <H3 className="mt-6">I&apos;m a Professional</H3>
-              <Text variant="caption" className="mt-2">
+
+              <div className="flex h-14 w-14 items-center justify-center mb-6 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors">
+                 <svg className="w-6 h-6 text-gold-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <H3 className="mb-2 group-hover:text-gold-dark transition-colors">I'm a Professional</H3>
+              <Text className="text-grey-warm mb-6">
                 Looking for your next opportunity in luxury retail
               </Text>
-              <ul className="mt-4 space-y-2">
-                <li className="flex items-center gap-2 text-caption text-soft-grey">
-                  <span className="text-matte-gold">✓</span> Create your profile
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
+                  <span className="text-gold">✓</span> Create your profile
                 </li>
-                <li className="flex items-center gap-2 text-caption text-soft-grey">
-                  <span className="text-matte-gold">✓</span> Get matched with opportunities
+                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
+                  <span className="text-gold">✓</span> Get matched with opportunities
                 </li>
-                <li className="flex items-center gap-2 text-caption text-soft-grey">
-                  <span className="text-matte-gold">✓</span> Track your career growth
+                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
+                  <span className="text-gold">✓</span> Track your career growth
                 </li>
               </ul>
             </Card>
 
             {/* Brand Option */}
-            <Card variant="interactive" onClick={() => handleSelectType("brand")} className="p-8">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-matte-gold/10">
-                <span className="text-2xl">🏢</span>
+            <Card 
+              onClick={() => handleSelectType("brand")} 
+              className="group p-8 border-none shadow-card hover:shadow-hover transition-all duration-500 cursor-pointer bg-ivory-light relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
+                 <Image
+                  src="/brand/la_grasset_tiny_golden_thread_forming_minimal_house_shape_sin_4c2e0c04-2e5b-4961-9503-949edd4c949a_0.png"
+                  alt=""
+                  fill
+                  className="object-contain object-top-right"
+                />
               </div>
-              <H3 className="mt-6">I&apos;m a Brand</H3>
-              <Text variant="caption" className="mt-2">
+
+              <div className="flex h-14 w-14 items-center justify-center mb-6 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors">
+                <svg className="w-6 h-6 text-gold-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <H3 className="mb-2 group-hover:text-gold-dark transition-colors">I'm a Brand</H3>
+              <Text className="text-grey-warm mb-6">
                 Looking for exceptional talent for your boutiques
               </Text>
-              <ul className="mt-4 space-y-2">
-                <li className="flex items-center gap-2 text-caption text-soft-grey">
-                  <span className="text-matte-gold">✓</span> Post opportunities
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
+                  <span className="text-gold">✓</span> Post opportunities
                 </li>
-                <li className="flex items-center gap-2 text-caption text-soft-grey">
-                  <span className="text-matte-gold">✓</span> Get matched with talent
+                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
+                  <span className="text-gold">✓</span> Get matched with talent
                 </li>
-                <li className="flex items-center gap-2 text-caption text-soft-grey">
-                  <span className="text-matte-gold">✓</span> Manage your stores
+                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
+                  <span className="text-gold">✓</span> Manage your stores
                 </li>
               </ul>
             </Card>
-          </Grid>
+          </div>
 
-          <Text variant="caption" className="mt-8 text-center">
-            Already have an account?{" "}
-            <Link href="/login" className="text-charcoal underline underline-offset-4 hover:text-matte-gold">
-              Sign in
-            </Link>
-          </Text>
+          <div className="mt-12 text-center">
+            <Text variant="caption">
+              Already have an account?{" "}
+              <Link href="/login" className="text-charcoal font-medium hover:text-gold-dark transition-colors underline underline-offset-4">
+                Sign in
+              </Link>
+            </Text>
+          </div>
         </div>
       </main>
     );
@@ -177,36 +215,41 @@ function SignupForm() {
 
   // Step 2: Signup form
   return (
-    <main className="flex min-h-screen items-center justify-center px-comfortable py-expansive">
+    <main className="min-h-screen flex items-center justify-center p-comfortable bg-ivory">
       <div className="w-full max-w-md">
-        <div className="text-center">
-          <Link href="/" className="inline-block">
-            <H2>Tailor Shift</H2>
-          </Link>
-          <Text className="mt-2 text-soft-grey">
-            Create your {userType === "brand" ? "brand" : "professional"} account
-          </Text>
-        </div>
+        <Card className="p-10 border-none shadow-elevated bg-ivory-light">
+          <div className="text-center mb-8">
+            <Link href="/" className="inline-block mb-6 opacity-90 hover:opacity-100 transition-opacity">
+              <Image
+                src="/brand/logo-monogram.png"
+                alt="Tailor Shift"
+                width={56}
+                height={56}
+                className="h-14 w-auto"
+                priority
+              />
+            </Link>
+            <H2 className="text-3xl mb-2">Create Account</H2>
+            <Text className="text-grey-warm">
+              Join as a <span className="text-gold-dark font-medium">{userType === "brand" ? "Brand" : "Professional"}</span>
+            </Text>
+          </div>
 
-        {/* Back button */}
-        <button
-          onClick={() => {
-            setStep("select");
-            setUserType(null);
-          }}
-          className="mt-6 flex items-center gap-2 text-caption text-soft-grey hover:text-charcoal"
-        >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Change selection
-        </button>
+          {/* Back button */}
+          <button
+            onClick={() => {
+              setStep("select");
+              setUserType(null);
+            }}
+            className="absolute top-8 left-8 text-grey-warm hover:text-charcoal transition-colors hidden sm:flex items-center gap-2 text-sm font-medium tracking-luxury-wide"
+          >
+            ← Back
+          </button>
 
-        {/* Signup Form */}
-        <form onSubmit={handleSignup} className="mt-6">
-          <Stack gap="lg">
+          {/* Signup Form */}
+          <form onSubmit={handleSignup} className="space-y-6">
             {error && (
-              <div className="rounded border border-error/20 bg-error/5 p-4 text-sm text-error">
+              <div className="rounded bg-error/10 p-4 text-sm text-error border border-error/20">
                 {error}
               </div>
             )}
@@ -219,6 +262,7 @@ function SignupForm() {
               onChange={(e) => setFullName(e.target.value)}
               required
               placeholder={userType === "brand" ? "Your name" : "Your full name"}
+              className="bg-white"
             />
 
             <Input
@@ -228,7 +272,8 @@ function SignupForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="you@example.com"
+              placeholder="name@company.com"
+              className="bg-white"
             />
 
             <Input
@@ -240,57 +285,53 @@ function SignupForm() {
               required
               placeholder="Min. 8 characters"
               helperText="Must be at least 8 characters"
+              className="bg-white"
             />
 
-            <Button type="submit" loading={loading} className="w-full">
+            <Button type="submit" loading={loading} className="w-full" size="lg">
               Create Account
             </Button>
-          </Stack>
-        </form>
+          </form>
 
-        {/* Divider */}
-        <div className="mt-8 flex items-center gap-4">
-          <div className="h-px flex-1 bg-concrete" />
-          <Text variant="caption">or continue with</Text>
-          <div className="h-px flex-1 bg-concrete" />
-        </div>
+          {/* Divider */}
+          <div className="my-8 flex items-center gap-4">
+            <div className="h-px flex-1 bg-stone/30" />
+            <Text variant="caption" className="text-stone">or continue with</Text>
+            <div className="h-px flex-1 bg-stone/30" />
+          </div>
 
-        {/* OAuth Buttons */}
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => handleOAuthSignup("google")}
-            disabled={loading}
-          >
-            <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-            </svg>
-            Google
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => handleOAuthSignup("linkedin_oidc")}
-            disabled={loading}
-          >
-            <svg className="mr-2 h-5 w-5" fill="#0A66C2" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            LinkedIn
-          </Button>
-        </div>
+          {/* OAuth Buttons */}
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => handleOAuthSignup("google")}
+              disabled={loading}
+              className="bg-white"
+            >
+              <span className="mr-2">G</span> Google
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => handleOAuthSignup("linkedin_oidc")}
+              disabled={loading}
+              className="bg-white"
+            >
+              <span className="mr-2">in</span> LinkedIn
+            </Button>
+          </div>
 
-        {/* Login link */}
-        <Text variant="caption" className="mt-8 text-center">
-          Already have an account?{" "}
-          <Link href="/login" className="text-charcoal underline underline-offset-4 hover:text-matte-gold">
-            Sign in
-          </Link>
-        </Text>
+          {/* Login link */}
+          <div className="mt-8 text-center">
+            <Text variant="caption">
+              Already have an account?{" "}
+              <Link href="/login" className="text-charcoal font-medium hover:text-gold-dark transition-colors underline underline-offset-4">
+                Sign in
+              </Link>
+            </Text>
+          </div>
+        </Card>
       </div>
     </main>
   );
@@ -298,12 +339,10 @@ function SignupForm() {
 
 function SignupLoading() {
   return (
-    <main className="flex min-h-screen items-center justify-center px-comfortable py-expansive">
-      <div className="w-full max-w-md text-center">
-        <H2>Tailor Shift</H2>
-        <Text variant="body" className="mt-4 text-soft-grey">
-          Loading...
-        </Text>
+    <main className="min-h-screen flex items-center justify-center bg-ivory">
+      <div className="flex flex-col items-center">
+        <div className="h-12 w-12 animate-pulse rounded-full bg-gold/20 mb-4" />
+        <Text className="text-grey-warm">Loading...</Text>
       </div>
     </main>
   );

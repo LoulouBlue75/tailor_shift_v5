@@ -2,26 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles - Quiet Luxury Design System */
+/* Base styles - Quiet Luxury Design System V2 */
 @layer base {
   :root {
-    /* Color CSS variables for runtime usage */
-    --color-off-white: #FAFAF8;
-    --color-charcoal: #1A1A1A;
-    --color-concrete: #E0E0DA;
-    --color-matte-gold: #C2A878;
-    --color-soft-grey: #6B6B6B;
-    --color-success: #2D5A3D;
-    --color-warning: #8B6914;
-    --color-error: #8B2D2D;
+    /* Fonts */
+    --font-serif: "Cormorant Garamond", Georgia, serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+    
+    /* Color palette - Quiet Luxury */
+    --ivory: #F5F0E6;
+    --ivory-warm: #EDE8DC;
+    --ivory-light: #FAF8F4;
+    
+    --gold-matte: #C4A962;
+    --gold-copper: #B8956E;
+    --gold-dark: #9A7B4F;
+    --gold-light: #D4BC82;
+    
+    --charcoal: #2C2C2C;
+    --charcoal-soft: #4A4A4A;
+    --grey-warm: #8B8178;
+    --stone: #D1CCC4;
+    
+    /* Semantic colors - Luxury versions */
+    --success: #7A8B6E;
+    --warning: #C4A962;
+    --error: #A65D57;
+    
+    /* Shadows */
+    --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.03);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
+    
+    /* Spacing - Luxury breathes */
+    --space-section: 6rem;
+    --space-card: 2rem;
+    --space-stack: 1.5rem;
+    --space-inline: 1rem;
+    
+    /* Letter spacing */
+    --tracking-wide: 0.05em;
+    --tracking-wider: 0.1em;
+    
+    /* Transitions */
+    --transition-base: 300ms ease;
+    
+    /* Legacy aliases */
+    --color-off-white: #F5F0E6;
+    --color-charcoal: #2C2C2C;
+    --color-concrete: #D1CCC4;
+    --color-matte-gold: #C4A962;
+    --color-soft-grey: #8B8178;
+    --color-success: #7A8B6E;
+    --color-warning: #C4A962;
+    --color-error: #A65D57;
   }
 
   html {
     @apply antialiased;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-off-white text-charcoal font-sans;
+    @apply bg-ivory text-charcoal font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -44,12 +88,17 @@
 
   /* Focus styles for accessibility */
   *:focus-visible {
-    @apply outline-none ring-2 ring-matte-gold ring-offset-2 ring-offset-off-white;
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-ivory;
   }
 
   /* Selection styling */
   ::selection {
-    @apply bg-matte-gold/20 text-charcoal;
+    @apply bg-gold/20 text-charcoal;
+  }
+  
+  /* Smooth transitions for interactive elements */
+  a, button, input, textarea, select {
+    transition: all var(--transition-base);
   }
 }
 
@@ -59,17 +108,27 @@
     @apply mx-auto px-comfortable max-w-7xl;
   }
 
-  /* Card base styles */
+  /* Card base styles - Shadows replace borders */
   .card {
-    @apply bg-white border border-concrete rounded p-comfortable;
+    @apply bg-ivory-light rounded-lg p-6 shadow-card;
   }
 
   .card-elevated {
-    @apply card shadow-elevation;
+    @apply card shadow-elevated;
   }
 
   .card-interactive {
-    @apply card transition-colors hover:border-matte-gold cursor-pointer;
+    @apply card cursor-pointer transition-shadow duration-300 hover:shadow-hover;
+  }
+  
+  /* Gold accent line - Decorative element */
+  .gold-line {
+    @apply h-px bg-gradient-to-r from-transparent via-gold to-transparent;
+  }
+  
+  /* Luxury button base */
+  .btn-luxury {
+    @apply inline-flex items-center justify-center font-medium tracking-luxury-wide transition-all duration-300;
   }
 }
 

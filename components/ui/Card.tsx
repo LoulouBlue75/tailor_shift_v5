@@ -8,13 +8,13 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = "default", children, onClick, ...props }, ref) => {
-    const baseStyles = "rounded-lg border bg-white p-6";
+    const baseStyles = "rounded-lg bg-ivory-light p-6";
 
     const variants = {
-      default: "border-concrete",
-      elevated: "border-concrete shadow-elevation",
+      default: "shadow-card",
+      elevated: "shadow-elevated",
       interactive:
-        "border-concrete cursor-pointer transition-all hover:border-matte-gold hover:shadow-elevation",
+        "shadow-card cursor-pointer transition-all duration-300 hover:shadow-hover",
     };
 
     return (
@@ -61,7 +61,7 @@ CardTitle.displayName = "CardTitle";
 
 const CardDescription = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn("mt-1 text-caption text-soft-grey", className)} {...props} />
+    <p ref={ref} className={cn("mt-1 text-caption text-grey-warm", className)} {...props} />
   )
 );
 CardDescription.displayName = "CardDescription";

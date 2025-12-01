@@ -13,18 +13,18 @@ function Badge({
   children,
   ...props
 }: BadgeProps) {
-  const baseStyles = "inline-flex items-center font-medium rounded-full";
+  const baseStyles = "inline-flex items-center font-medium rounded-full tracking-luxury-wide";
 
   const variants = {
-    default: "bg-concrete text-charcoal",
-    success: "bg-success/10 text-success",
-    warning: "bg-warning/10 text-warning",
-    error: "bg-error/10 text-error",
-    info: "bg-matte-gold/10 text-matte-gold",
+    default: "bg-ivory-warm text-charcoal-soft",
+    success: "bg-success/15 text-[#5A6B4E]",
+    warning: "bg-gold/15 text-gold-dark",
+    error: "bg-error/15 text-error",
+    info: "bg-gold/15 text-gold-dark",
   };
 
   const sizes = {
-    sm: "px-2 py-0.5 text-xs",
+    sm: "px-2.5 py-0.5 text-xs",
     md: "px-3 py-1 text-caption",
   };
 

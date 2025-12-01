@@ -22,19 +22,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-matte-gold focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+      "inline-flex items-center justify-center font-medium tracking-luxury-wide transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-ivory disabled:opacity-50 disabled:pointer-events-none";
 
     const variants = {
-      primary: "bg-matte-gold text-charcoal hover:bg-matte-gold/90",
+      primary: "bg-gold text-charcoal hover:bg-gold-copper shadow-subtle hover:shadow-card border-none",
       secondary:
-        "border border-charcoal text-charcoal bg-transparent hover:bg-charcoal/5",
+        "border border-stone text-charcoal bg-transparent hover:border-gold hover:text-charcoal shadow-none",
       ghost:
-        "text-charcoal bg-transparent underline-offset-4 hover:underline",
+        "text-gold-dark bg-transparent underline-offset-4 hover:underline shadow-none p-0 hover:bg-transparent",
     };
 
     const sizes = {
       sm: "px-4 py-2 text-caption rounded",
-      md: "px-6 py-3 text-body rounded",
+      md: "px-6 py-3 text-body rounded-lg",
       lg: "px-8 py-4 text-body rounded-lg",
     };
 
