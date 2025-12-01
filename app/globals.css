@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles - Quiet Luxury Design System */
+@layer base {
+  :root {
+    /* Color CSS variables for runtime usage */
+    --color-off-white: #FAFAF8;
+    --color-charcoal: #1A1A1A;
+    --color-concrete: #E0E0DA;
+    --color-matte-gold: #C2A878;
+    --color-soft-grey: #6B6B6B;
+    --color-success: #2D5A3D;
+    --color-warning: #8B6914;
+    --color-error: #8B2D2D;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-off-white text-charcoal font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Typography defaults */
+  h1 {
+    @apply font-serif text-h1 text-charcoal;
+  }
+
+  h2 {
+    @apply font-serif text-h2 text-charcoal;
+  }
+
+  h3 {
+    @apply font-sans text-h3 text-charcoal;
+  }
+
+  p {
+    @apply text-body text-charcoal;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-matte-gold ring-offset-2 ring-offset-off-white;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-matte-gold/20 text-charcoal;
+  }
+}
+
+@layer components {
+  /* Container utility */
+  .container {
+    @apply mx-auto px-comfortable max-w-7xl;
+  }
+
+  /* Card base styles */
+  .card {
+    @apply bg-white border border-concrete rounded p-comfortable;
+  }
+
+  .card-elevated {
+    @apply card shadow-elevation;
+  }
+
+  .card-interactive {
+    @apply card transition-colors hover:border-matte-gold cursor-pointer;
+  }
+}
+
+@layer utilities {
+  /* Text balance for better typography */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
