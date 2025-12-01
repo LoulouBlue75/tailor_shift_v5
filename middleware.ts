@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   // Public routes - no auth required
-  const publicRoutes = ["/", "/login", "/signup", "/forgot-password", "/auth/callback", "/auth/reset-password", "/terms", "/privacy"];
+  const publicRoutes = ["/", "/login", "/signup", "/forgot-password", "/auth/callback", "/auth/reset-password", "/terms", "/privacy", "/brands", "/professionals"];
   const isPublicRoute = publicRoutes.some(
     (route) => path === route || path.startsWith("/auth/")
   );
@@ -29,7 +29,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // Protected routes - require auth
-  if (path.startsWith("/talent") || path.startsWith("/brand")) {
+  // Note: Using "/talent/" and "/brand/" with trailing slash to avoid matching "/brands" and "/professionals"
+  if (path.startsWith("/talent/") || path.startsWith("/brand/")) {
     if (!user) {
       const redirectUrl = new URL("/login", request.url);
       redirectUrl.searchParams.set("redirect", path);
