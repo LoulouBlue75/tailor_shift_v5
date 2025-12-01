@@ -109,8 +109,8 @@ function SignupForm() {
     return (
       <main className="min-h-screen flex items-center justify-center p-comfortable bg-ivory">
         <div className="w-full max-w-4xl">
-          <div className="text-center mb-12">
-            <Link href="/" className="inline-block mb-6 opacity-90 hover:opacity-100 transition-opacity">
+          <div className="text-center mb-16">
+            <Link href="/" className="inline-block mb-8 opacity-90 hover:opacity-100 transition-opacity">
               <Image
                 src="/brand/logo-monogram.png"
                 alt="Tailor Shift"
@@ -120,20 +120,20 @@ function SignupForm() {
                 priority
               />
             </Link>
-            <H2 className="text-4xl mb-4">Choose your journey</H2>
+            <H2 className="text-4xl mb-4">Embark on your tailored journey</H2>
             <Text className="text-xl text-charcoal-soft font-light">
-              How would you like to use Tailor Shift?
+              Tell us who you are and we'll craft the right experience for you.
             </Text>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-10 max-w-3xl mx-auto">
             {/* Professional Option */}
             <Card 
               onClick={() => handleSelectType("talent")} 
-              className="group p-8 border-none shadow-card hover:shadow-hover transition-all duration-500 cursor-pointer bg-ivory-light relative overflow-hidden"
+              className="group p-10 border-none shadow-subtle hover:shadow-card transition-all duration-500 cursor-pointer bg-ivory-light relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
-                 <Image
+              <div className="absolute top-0 right-0 w-32 h-32 opacity-[0.08] group-hover:opacity-[0.15] transition-opacity pointer-events-none">
+                <Image
                   src="/brand/la_grasset_single_golden_thread_ascending_in_elegant_curve_on_87aa6836-f1f6-4aa4-9114-5b9b3dfaa8b2_1.png"
                   alt=""
                   fill
@@ -141,35 +141,27 @@ function SignupForm() {
                 />
               </div>
 
-              <div className="flex h-14 w-14 items-center justify-center mb-6 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors">
-                 <svg className="w-6 h-6 text-gold-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="flex h-12 w-12 items-center justify-center mb-6 bg-gold/10 rounded-full group-hover:bg-gold/15 transition-colors">
+                <svg className="w-5 h-5 text-gold-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
-              <H3 className="mb-2 group-hover:text-gold-dark transition-colors">I'm a Professional</H3>
-              <Text className="text-grey-warm mb-6">
-                Looking for your next opportunity in luxury retail
+              <H3 className="mb-2 group-hover:text-gold-dark transition-colors">For Professionals</H3>
+              <Text className="text-grey-warm mb-8 font-light">
+                Advance your career in luxury retail.
               </Text>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
-                  <span className="text-gold">✓</span> Create your profile
-                </li>
-                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
-                  <span className="text-gold">✓</span> Get matched with opportunities
-                </li>
-                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
-                  <span className="text-gold">✓</span> Track your career growth
-                </li>
-              </ul>
+              <Text className="text-caption text-charcoal-soft leading-relaxed">
+                Build a polished profile <span className="text-gold mx-2">·</span> Discover curated opportunities <span className="text-gold mx-2">·</span> Track your growth
+              </Text>
             </Card>
 
             {/* Brand Option */}
             <Card 
               onClick={() => handleSelectType("brand")} 
-              className="group p-8 border-none shadow-card hover:shadow-hover transition-all duration-500 cursor-pointer bg-ivory-light relative overflow-hidden"
+              className="group p-10 border-none shadow-subtle hover:shadow-card transition-all duration-500 cursor-pointer bg-ivory-light relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
-                 <Image
+              <div className="absolute top-0 right-0 w-32 h-32 opacity-[0.08] group-hover:opacity-[0.15] transition-opacity pointer-events-none">
+                <Image
                   src="/brand/la_grasset_tiny_golden_thread_forming_minimal_house_shape_sin_4c2e0c04-2e5b-4961-9503-949edd4c949a_0.png"
                   alt=""
                   fill
@@ -177,31 +169,23 @@ function SignupForm() {
                 />
               </div>
 
-              <div className="flex h-14 w-14 items-center justify-center mb-6 bg-gold/10 rounded-full group-hover:bg-gold/20 transition-colors">
-                <svg className="w-6 h-6 text-gold-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="flex h-12 w-12 items-center justify-center mb-6 bg-gold/10 rounded-full group-hover:bg-gold/15 transition-colors">
+                <svg className="w-5 h-5 text-gold-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <H3 className="mb-2 group-hover:text-gold-dark transition-colors">I'm a Brand</H3>
-              <Text className="text-grey-warm mb-6">
-                Looking for exceptional talent for your boutiques
+              <H3 className="mb-2 group-hover:text-gold-dark transition-colors">For Luxury Brands</H3>
+              <Text className="text-grey-warm mb-8 font-light">
+                Find exceptional talent for your maisons.
               </Text>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
-                  <span className="text-gold">✓</span> Post opportunities
-                </li>
-                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
-                  <span className="text-gold">✓</span> Get matched with talent
-                </li>
-                <li className="flex items-center gap-3 text-caption text-charcoal-soft">
-                  <span className="text-gold">✓</span> Manage your stores
-                </li>
-              </ul>
+              <Text className="text-caption text-charcoal-soft leading-relaxed">
+                Publish boutique opportunities <span className="text-gold mx-2">·</span> Connect with matched professionals <span className="text-gold mx-2">·</span> Manage your stores
+              </Text>
             </Card>
           </div>
 
-          <div className="mt-12 text-center">
-            <Text variant="caption">
+          <div className="mt-16 text-center">
+            <Text variant="caption" className="text-grey-warm">
               Already have an account?{" "}
               <Link href="/login" className="text-charcoal font-medium hover:text-gold-dark transition-colors underline underline-offset-4">
                 Sign in
