@@ -165,33 +165,47 @@ export async function saveIdentity(
   _prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> {
-  const rawData = {
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
-    phone: formData.get("phone") || null,
-    linkedinUrl: formData.get("linkedinUrl") || null,
-  };
+  try {
+    const rawData = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      phone: formData.get("phone") || null,
+      linkedinUrl: formData.get("linkedinUrl") || null,
+    };
 
-  const parsed = identitySchema.safeParse(rawData);
-  if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
-  }
+    const parsed = identitySchema.safeParse(rawData);
+    if (!parsed.success) {
+      return { error: parsed.error.errors[0].message };
+    }
 
-  const { talentId } = await getOrCreateTalent();
-  const supabase = await createClient();
+    let talentId: string;
+    try {
+      const result = await getOrCreateTalent();
+      talentId = result.talentId;
+    } catch (err) {
+      console.error("Failed to get/create talent:", err);
+      return { error: err instanceof Error ? err.message : "Failed to initialize profile" };
+    }
 
-  const { error } = await supabase
-    .from("talents")
-    .update({
-      first_name: parsed.data.firstName,
-      last_name: parsed.data.lastName,
-      phone: parsed.data.phone,
-      linkedin_url: parsed.data.linkedinUrl || null,
-    })
-    .eq("id", talentId);
+    const supabase = await createClient();
 
-  if (error) {
-    return { error: error.message };
+    const { error } = await supabase
+      .from("talents")
+      .update({
+        first_name: parsed.data.firstName,
+        last_name: parsed.data.lastName,
+        phone: parsed.data.phone,
+        linkedin_url: parsed.data.linkedinUrl || null,
+      })
+      .eq("id", talentId);
+
+    if (error) {
+      console.error("Supabase update error:", error);
+      return { error: error.message };
+    }
+  } catch (err) {
+    console.error("Unexpected error in saveIdentity:", err);
+    return { error: "An unexpected error occurred. Please try again." };
   }
 
   redirect("/talent/onboarding/professional");
@@ -360,7 +374,6 @@ export async function completeOnboarding(): Promise<void> {
     .from("talents")
     .update({
       profile_completion_pct: 70, // Basic completion without assessment
-      onboarding_completed: true,
     })
     .eq("id", talentId);
 
@@ -373,7 +386,12 @@ export async function completeOnboarding(): Promise<void> {
     .eq("id", userId);
 
   // Trigger matching engine
-  await generateMatchesForTalent(talentId);
+  try {
+    await generateMatchesForTalent(talentId);
+  } catch (err) {
+    console.error("Failed to generate matches:", err);
+    // Don't block onboarding completion if matching fails
+  }
 
   redirect("/talent/dashboard");
 }

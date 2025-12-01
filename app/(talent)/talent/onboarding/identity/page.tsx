@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { saveIdentity } from "@/app/actions/talent-onboarding";
-import { Button, Input, H3, Text, Stack, Card } from "@/components/ui";
+import { Button, Input, H3, Text, Stack, Card, PhoneInput } from "@/components/ui";
 import { StepProgress } from "@/components/onboarding/StepProgress";
 
 function SubmitButton() {
@@ -28,6 +28,12 @@ export default function IdentityStep() {
           This information helps us personalize your experience.
         </Text>
 
+        {state?.error && (
+          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <Text className="text-red-700 text-sm">{state.error}</Text>
+          </div>
+        )}
+
         <form action={formAction} className="mt-8">
           <Stack gap="lg">
             <div className="grid grid-cols-2 gap-4">
@@ -47,11 +53,9 @@ export default function IdentityStep() {
               />
             </div>
 
-            <Input
+            <PhoneInput
               label="Phone"
               name="phone"
-              type="tel"
-              placeholder="+33 6 12 34 56 78"
               helperText="Optional - for direct communication"
             />
 

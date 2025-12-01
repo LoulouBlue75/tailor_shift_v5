@@ -90,3 +90,6 @@ export {
   type BreadcrumbProps,
   type BreadcrumbItem,
 } from "./Breadcrumb";
+
+// Phone Input
+export { PhoneInput } from "./PhoneInput";
