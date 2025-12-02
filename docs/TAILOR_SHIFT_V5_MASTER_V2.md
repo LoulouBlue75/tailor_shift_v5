@@ -774,4 +774,172 @@ NEXT_PUBLIC_APP_NAME=Tailor Shift
 
 ---
 
+## APPENDIX D: Guide RLS — Prévention des Dépendances Circulaires
+
+### D.1 Comprendre le Problème
+
+**Qu'est-ce qu'une dépendance circulaire RLS ?**
+
+Quand PostgreSQL évalue une policy RLS, il exécute la clause `USING()`. Si cette clause référence une autre table avec RLS, PostgreSQL doit d'abord évaluer les policies de cette table. Si cette autre table référence la première table... BOUCLE INFINIE.
+
+```
+Table A.SELECT → Policy vérifie Table B → Table B.SELECT → Policy vérifie Table A → ∞
+```
+
+### D.2 Symptômes
+
+| Symptôme | Diagnostic |
+|----------|------------|
+| Erreur "infinite recursion detected in policy" | Dépendance circulaire confirmée |
+| Query timeout sur SELECT | Possible récursion non détectée |
+| "permission denied for table X" en cascade | RLS cascade qui échoue |
+
+### D.3 Checklist AVANT de Créer une Policy RLS
+
+```markdown
+□ 1. La policy référence-t-elle une autre table dans USING() ?
+     └─ Si NON → OK, pas de risque
+     └─ Si OUI → Passer à l'étape 2
+
+□ 2. Cette autre table a-t-elle RLS activé ?
+     └─ Si NON → OK (rare en prod)
+     └─ Si OUI → Passer à l'étape 3
+
+□ 3. Les policies de cette table référencent-elles notre table ?
+     └─ Si NON → OK mais surveiller
+     └─ Si OUI → 🔴 DANGER: Utiliser SECURITY DEFINER
+
+□ 4. Dessiner le graphe de dépendances RLS
+     └─ Visualiser toutes les flèches de références
+     └─ Chercher les cycles (A → B → A)
+```
+
+### D.4 Pattern SECURITY DEFINER
+
+**Principe:** Une fonction `SECURITY DEFINER` s'exécute avec les privilèges de son créateur (généralement `postgres`), pas de l'appelant. Elle **bypass complètement RLS**.
+
+**Template de fonction helper:**
+
+```sql
+-- Template: Récupérer des IDs pour un user sans déclencher RLS
+CREATE OR REPLACE FUNCTION get_X_ids_for_user(user_id uuid)
+RETURNS uuid[] AS $$
+DECLARE
+  result uuid[];
+BEGIN
+  SELECT ARRAY_AGG(column)
+  INTO result
+  FROM table_with_rls
+  WHERE some_condition = user_id;
+  
+  RETURN COALESCE(result, ARRAY[]::uuid[]);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER STABLE;
+
+-- Accorder l'exécution
+GRANT EXECUTE ON FUNCTION get_X_ids_for_user(uuid) TO authenticated;
+```
+
+**Template de policy utilisant le helper:**
+
+```sql
+CREATE POLICY "Users can view related data"
+  ON my_table FOR SELECT
+  USING (
+    id = ANY(get_X_ids_for_user(auth.uid()))  -- Pas de sous-requête avec RLS
+  );
+```
+
+### D.5 Matrice de Dépendances — Template Vierge
+
+Avant de finaliser les policies, remplir ce tableau :
+
+```
+| Table Source    | Tables Référencées | RLS sur Cible? | Cycle Détecté? | Solution        |
+|-----------------|-------------------|----------------|----------------|-----------------|
+| profiles        | (aucune)          | N/A            | Non            | Direct auth.uid |
+| talents         | profiles          | Oui            | Non            | Direct via FK   |
+| brands          | profiles          | Oui            | Non            | Direct via FK   |
+| matches         | talents, brands   | Oui            | ⚠️ Potentiel  | SECURITY DEFINER|
+| experience_blks | talents           | Oui            | Vérifié        | Via helper      |
+| stores          | brands            | Oui            | Vérifié        | Via helper      |
+| opportunities   | brands, stores    | Oui            | Vérifié        | Via helper      |
+```
+
+### D.6 Règles d'Or
+
+1. **auth.uid() = column** est toujours safe
+2. **Sous-requêtes sur tables sans RLS** sont safe
+3. **Sous-requêtes sur tables AVEC RLS** → vérifier le cycle
+4. **Dans le doute, utiliser SECURITY DEFINER**
+5. **Toujours tester après chaque nouvelle policy**
+
+### D.7 Commandes de Debug
+
+```sql
+-- Voir toutes les policies d'une table
+SELECT * FROM pg_policies WHERE tablename = 'talents';
+
+-- Tester une policy en tant qu'user
+SET ROLE authenticated;
+SET request.jwt.claims = '{"sub": "user-uuid-here"}';
+SELECT * FROM talents;  -- Si timeout ou erreur = problème
+RESET ROLE;
+
+-- Trouver les fonctions SECURITY DEFINER
+SELECT proname, prosecdef 
+FROM pg_proc 
+WHERE prosecdef = true 
+AND pronamespace = 'public'::regnamespace;
+```
+
+### D.8 Anti-Patterns à Éviter
+
+```sql
+-- ❌ MAUVAIS: Sous-requête sur table avec RLS qui référence cette table
+CREATE POLICY "Bad policy" ON talents FOR SELECT
+USING (
+  id IN (SELECT talent_id FROM matches WHERE ...)  -- matches a RLS qui ref talents
+);
+
+-- ✅ BON: Utiliser helper SECURITY DEFINER
+CREATE POLICY "Good policy" ON talents FOR SELECT
+USING (
+  id = ANY(get_matched_talent_ids_for_brand(auth.uid()))
+);
+```
+
+---
+
+## APPENDIX E: Checklist Pre-Development
+
+### Avant de Coder — Validation Spec
+
+- [ ] User State Machine défini (tous les états)
+- [ ] Database schema reviewé
+- [ ] RLS Dependency Matrix complète
+- [ ] Route Matrix (public/protected) validée
+- [ ] Error State Catalog documenté
+- [ ] Design System tokens finalisés
+- [ ] Component Inventory créé
+
+### Avant Chaque Feature — Validation Technique
+
+- [ ] Server Action nommée et documentée
+- [ ] Types TypeScript mis à jour
+- [ ] RLS policy vérifiée (pas de cycle)
+- [ ] Edge cases listés et gérés
+- [ ] Tests manuels définis
+
+### Avant Production — Validation Qualité
+
+- [ ] Toutes migrations appliquées
+- [ ] E2E flows testés (talent + brand)
+- [ ] Middleware testé tous les états
+- [ ] Responsive vérifié
+- [ ] Performance acceptable
+- [ ] Error messages user-friendly
+
+---
+
 *End of V5.2 Specification — Consolidated from lessons learned*
