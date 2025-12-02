@@ -519,7 +519,11 @@ CREATE POLICY "User notifications" ON notifications
 
 ## PART 4: DESIGN SYSTEM
 
-**📌 See `docs/BRAND_GUIDELINES_V6.md` for complete visual direction**
+**📌 Reference Documents:**
+- `docs/BRAND_GUIDELINES_V6.md` — Visual direction, typography, colors
+- `docs/STORE_CONTEXT_MODEL_V6.md` — Store Fingerprint (10 dimensions)
+- `docs/CAPABILITY_FRAMEWORK_V6.md` — Assessment Framework (6 dimensions)
+- `docs/ADMIN_SYSTEM_V6.md` — Admin dashboard, validation, internal mobility
 
 ### 4.0 Design Evolution V5 → V6
 
