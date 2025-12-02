@@ -38,18 +38,36 @@ export async function middleware(request: NextRequest) {
     }
 
     // Get user profile to check user_type
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select("user_type")
       .eq("id", user.id)
       .single();
 
+    // Handle case where profile doesn't exist or can't be read (prevents redirect loop)
+    if (profileError || !profile) {
+      console.error("Middleware: Could not fetch profile for user", user.id, profileError?.message);
+      // Redirect to signup to fix the account state - don't create a loop
+      const signupUrl = new URL("/signup", request.url);
+      signupUrl.searchParams.set("error", "profile_missing");
+      return NextResponse.redirect(signupUrl);
+    }
+
+    // Handle case where user_type is null/undefined (prevents redirect loop)
+    if (!profile.user_type) {
+      console.error("Middleware: user_type is null for user", user.id);
+      // Redirect to signup to set the user type
+      const signupUrl = new URL("/signup", request.url);
+      signupUrl.searchParams.set("error", "type_missing");
+      return NextResponse.redirect(signupUrl);
+    }
+
     // Verify user_type matches the route
-    if (path.startsWith("/talent") && profile?.user_type !== "talent") {
+    if (path.startsWith("/talent") && profile.user_type !== "talent") {
       return NextResponse.redirect(new URL("/brand/dashboard", request.url));
     }
 
-    if (path.startsWith("/brand") && profile?.user_type !== "brand") {
+    if (path.startsWith("/brand") && profile.user_type !== "brand") {
       return NextResponse.redirect(new URL("/talent/dashboard", request.url));
     }
   }
