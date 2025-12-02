@@ -519,7 +519,36 @@ CREATE POLICY "User notifications" ON notifications
 
 ## PART 4: DESIGN SYSTEM
 
-*(Unchanged from V5 — see DESIGN_SYSTEM_V2.md)*
+**📌 See `docs/BRAND_GUIDELINES_V6.md` for complete visual direction**
+
+### 4.0 Design Evolution V5 → V6
+
+| Aspect | V5 | V6 |
+|--------|----|----|
+| Background | Ivory (#F5F0E6) | White (#FFFFFF) |
+| Gold usage | Frequent (20%) | Sparse (5%) |
+| Buttons | Shadow, filled | Minimal, outline/text |
+| Cards | Shadow | Border only |
+| Typography | Cormorant 40px | Cormorant 48-72px |
+| Philosophy | "Quiet Luxury" | "Extreme Restraint" |
+
+**Inspiration:** Smythson.com, Moynat, The Row
+
+### 4.1 Revised Color Palette
+
+| Token | V5 Hex | V6 Hex | Note |
+|-------|--------|--------|------|
+| background | #F5F0E6 | #FFFFFF | More minimal |
+| secondary | #EDE8DC | #FAF8F4 | Lighter |
+| text | #2C2C2C | #1A1A1A | Darker |
+| gold | #C4A962 | #B8A068 | More muted |
+
+### 4.2 Language
+
+**Default:** English
+**Future:** French (V6.2)
+
+All content in dictionaries for i18n-ready architecture.
 
 ### 4.1 New Components V6
 
